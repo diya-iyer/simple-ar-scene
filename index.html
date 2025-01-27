@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Simple AR Scene</title>
+    <!-- A-Frame -->
+    <script src="https://aframe.io/releases/1.6.0/aframe.min.js"></script>
+    <!-- AR.js A-Frame components -->
+    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+    <script>
+      // Custom component for click interaction
+      AFRAME.registerComponent("clicker", {
+        init: function () {
+          this.el.addEventListener("click", () => {
+            alert("Model clicked!");
+          });
+        },
+      });
+    </script>
+  </head>
+  <body style="margin: 0; overflow: hidden;">
+    <!-- AR Scene -->
+    <a-scene
+      embedded
+      arjs
+      vr-mode-ui="enabled: false"
+      raycaster
+      cursor="rayOrigin: mouse"
+    >
+      <!-- Marker -->
+      <a-marker preset="hiro">
+        <!-- 3D Model -->
+        <a-entity
+          position="0 0 0"
+          scale="0.05 0.05 0.05"
+          rotation="0 45 0"
+          gltf-model="scene.gltf"
+          animation="property: rotation; to: 0 360 0; loop: true; dur: 5000"
+          clicker
+        ></a-entity>
+      </a-marker>
+
+      <!-- Camera -->
+      <a-entity camera></a-entity>
+    </a-scene>
+  </body>
+</html>
